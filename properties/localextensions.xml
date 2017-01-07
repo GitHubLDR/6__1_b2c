@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hybrisconfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="resources/schemas/extensions.xsd">
+	<extensions>
+		<!-- 
+				All extensions located in ${HYBRIS_BIN_DIR}/platform/ext are automatically loaded. 
+				More information about how to configure available extensions can be found here : https://wiki.hybris.com/x/nZVzC
+		-->
+				
+		<path dir="${HYBRIS_BIN_DIR}" />
+		
+
+										
+		<!-- ext-template -->
+		<extension name="yempty" />
+		<extension name="yhacext" />
+		
+<extension dir="E:\hybrisworkspace\HYBRISCOMM_6_B2C\hybris\bin/custom/ldr/ldrfulfilmentprocess"/>
+<extension dir="E:\hybrisworkspace\HYBRISCOMM_6_B2C\hybris\bin/custom/ldr/ldrcore"/>
+<extension dir="E:\hybrisworkspace\HYBRISCOMM_6_B2C\hybris\bin/custom/ldr/ldrinitialdata"/>
+<extension dir="E:\hybrisworkspace\HYBRISCOMM_6_B2C\hybris\bin/custom/ldr/ldrfacades"/>
+<extension dir="E:\hybrisworkspace\HYBRISCOMM_6_B2C\hybris\bin/custom/ldr/ldrtest"/>
+<extension dir="E:\hybrisworkspace\HYBRISCOMM_6_B2C\hybris\bin/custom/ldr/ldrstorefront"/>
+<extension dir="E:\hybrisworkspace\HYBRISCOMM_6_B2C\hybris\bin/custom/ldr/ldrcockpits"/>
+
+<extension dir="${HYBRIS_BIN_DIR}/ext-integration/datahubadapter" />
+<extension dir="${HYBRIS_BIN_DIR}/ext-integration/datahubbackoffice" />
+				
+	</extensions>
+</hybrisconfig>

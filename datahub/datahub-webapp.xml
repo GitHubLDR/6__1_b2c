@@ -1,0 +1,6 @@
+<!-- Add this file in C:\Program Files\Apache Software Foundation\Tomcat 7.0\conf\Catalina\localhost-->
+
+<Context antiJARLocking="true" docBase="E:/hybrisworkspace/hybrisdatahub/warfile/datahub-webapp.war"
+         reloadable="true">
+    <Loader className="org.apache.catalina.loader.VirtualWebappLoader" virtualClasspath="E:/hybrisworkspace/hybrisdatahub/dathub_jarfiles/*.jar" />
+</Context>

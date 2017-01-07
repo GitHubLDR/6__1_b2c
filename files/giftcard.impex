@@ -1,0 +1,66 @@
+
+# 
+# ImpEx for Apparel DE Site CMS Content 
+# 
+$contentCatalog=apparel-ukContentCatalog 
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Online])[default=$contentCatalog:Online] 
+
+# Load the storefront context root config param
+$storefrontContextRoot=$config-storefrontContextRoot
+
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;GiftCardPage;GiftCardPage;ContentPage1Template;/abc
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;
+;;GiftCardPageComponent;GiftCardPageComponent;giftCardPage.jsp;
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(uid,$contentCV)
+;;Section1_GiftCardPageContentSlot;Section1_GiftCardPageContentSlot;true;GiftCardPageComponent
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true];contentSlot(uid,$contentCV)[unique=true]
+;;Section1-GiftCardContentSlotForPage;Section1;GiftCardPage;Section1_GiftCardPageContentSlot
+
+#=================================================================================================
+#
+# Import the Solr configuration for the Apparel UK store
+#
+$productCatalog=apparelProductCatalog
+$catalogVersions=catalogVersions(catalog(id),version);
+$serverConfigName=apparel-ukSolrServerConfig
+$indexConfigName=apparel-ukSolrIndexConfig
+$searchConfigName=apparel-ukPageSize
+$facetSearchConfigName=apparel-ukIndex
+$facetSearchConfigDescription=Apparel UK Solr Index
+$searchIndexNamePrefix=apparel-uk
+$solrIndexedType=apparel-ukProductType
+$indexBaseSite=apparel-uk
+$indexLanguages=en
+$indexCurrencies=GBP
+INSERT_UPDATE SolrIndexedProperty;solrIndexedType(identifier)[unique=true];name[unique=true];type(code);sortableType(code);currency[default=false];localized[default=false];multiValue[default=false];useForSpellchecking[default=false];useForAutocomplete[default=false];fieldValueProvider;ftsPhraseQuery[default=false];ftsPhraseQueryBoost;ftsQuery[default=false];ftsQueryBoost;ftsFuzzyQuery[default=false];ftsFuzzyQueryBoost;ftsWildcardQuery[default=false];ftsWildcardQueryType(code)[default=POSTFIX];ftsWildcardQueryBoost;ftsWildcardQueryMinTermLength
+;$solrIndexedType; facteAttribute                   ;string ;            ;    ;    ;    ;true;true;
+;$solrIndexedType; sizeText                   ;string ;            ;    ;    ;    ;true;true;
+;$solrIndexedType; isSizeGuide                   ;boolean ;            ;    ;    ;    ;true;true;
+
+#=================================================================================================
+
+
+# 
+# ImpEx for Apparel DE Site CMS Content 
+# 
+$contentCatalog=apparel-ukContentCatalog 
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Online])[default=$contentCatalog:Online] 
+
+# Load the storefront context root config param
+$storefrontContextRoot=$config-storefrontContextRoot
+
+INSERT_UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);label;defaultPage[default='true'];approvalStatus(code)[default='approved'];homepage[default='false']
+;;FeedBackPage;Feed Back Page;ContentPage1Template;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;
+;;FeedBackPageComponent;FeedBackPageComponent;feedBackPage.jsp;
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(uid,$contentCV)
+;;Section1_FeedBackPageContentSlot;Section1_FeedBackPageContentSlot;true;FeedBackPageComponent
+
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true];contentSlot(uid,$contentCV)[unique=true]
+;;Section1-FeedBackContentSlotForPage;Section1;FeedBackPage;Section1_FeedBackPageContentSlot
