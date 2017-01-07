@@ -20,4 +20,11 @@
 		<property name="code" type="String"/>
 		<property name="name" type="String"/>
 	</bean>
+	
+	<bean class="com.ldr.facades.giftcards.data.GiftCardData">
+		<property name="uid" type="String"/>
+		<property name="name" type="String"/>
+		<property name="isOnline" type="Boolean"/>	
+	</bean>
+	
 </beans>

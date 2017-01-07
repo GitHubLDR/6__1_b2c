@@ -436,4 +436,21 @@
 		<property name="rootCategoryCode" value="categories"/>
 	</bean>
 	
+	<!-- Configuring the Service class -->
+	<alias name="defaultGiftCardServiceImpl" alias="giftCardService"/>
+	<bean id="defaultGiftCardServiceImpl" class="com.ldr.core.giftcard.service.impl.GiftCardServiceImpl" />
+	
+	<!--  Configuring the DAO class-->
+	<alias name="defaultGiftCardDaoImpl" alias="giftCardDao" />
+	<bean id="defaultGiftCardDaoImpl"	class="com.ldr.core.giftcard.dao.impl.GiftCardDaoImpl" />
+	
+	<!--  Interceptor Testing-->
+	<bean id="giftCardAllInterceptorsMapping" class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="giftCardAllInterceptors"/>
+		<property name="typeCode" value="GiftCard"/>
+		<property name="order" value="1"/>
+	</bean>
+	
+	<bean id="giftCardAllInterceptors" class="com.ldr.core.giftcard.interceptor.GiftCardAllInterceptors"/>	
+	
 </beans>
