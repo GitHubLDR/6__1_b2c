@@ -451,6 +451,22 @@
 		<property name="order" value="1"/>
 	</bean>
 	
-	<bean id="giftCardAllInterceptors" class="com.ldr.core.giftcard.interceptor.GiftCardAllInterceptors"/>	
+	<bean id="giftCardAllInterceptors" class="com.ldr.core.giftcard.interceptor.GiftCardAllInterceptors"/>
+	
+	
+	<!-- Customer Activation workflow -->
+	
+	<alias alias="customerAccountService" name="ldrDefaultCustomerAccountService" />
+	<bean id="ldrDefaultCustomerAccountService" class="com.ldr.core.customer.LDRDefaultCustomerAccountService" parent="defaultCustomerAccountService" />
+		
+		<!-- <bean id="abstractNewCustomerActivation" class="com.ldr.workflow.customer.AbstractNewCustomerActivation" abstract="true"/> -->
+
+	<alias name="defaultNewCustomerRegistrationActivation" alias="newCustomerRegistrationActivation" />
+	<bean id="defaultNewCustomerRegistrationActivation"
+		class="com.ldr.workflow.customer.DefaultNewCustomerRegistrationActivation" />
+
+	<alias name="defaultNewCustomerRegistrationDecline" alias="newCustomerRegistrationDecline" />
+	<bean id="defaultNewCustomerRegistrationDecline"
+		class="com.ldr.workflow.customer.DefaultNewCustomerRegistrationDecline" />
 	
 </beans>

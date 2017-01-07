@@ -9,14 +9,19 @@
  * Information and shall use it only in accordance with the terms of the
  * license agreement you entered into with hybris.
  *
- *  
+ *
  */
 package com.ldr.storefront.security;
 
+
 import de.hybris.platform.acceleratorstorefrontcommons.security.AbstractAcceleratorAuthenticationProvider;
+import de.hybris.platform.acceleratorstorefrontcommons.security.BruteForceAttackCounter;
 import de.hybris.platform.core.Constants;
+import de.hybris.platform.core.model.user.CustomerModel;
+import de.hybris.platform.core.model.user.UserModel;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.AuthenticationException;
@@ -40,6 +45,10 @@ public class AcceleratorAuthenticationProvider extends AbstractAcceleratorAuthen
 {
 	private static final String ROLE_ADMIN_GROUP = "ROLE_" + Constants.USER.ADMIN_USERGROUP.toUpperCase();
 
+	private static final Logger LOG = Logger.getLogger(AbstractAcceleratorAuthenticationProvider.class);
+
+	private BruteForceAttackCounter bruteForceAttackCounter;
+
 	private GrantedAuthority adminAuthority = new SimpleGrantedAuthority(ROLE_ADMIN_GROUP);
 
 	/**
@@ -51,6 +60,15 @@ public class AcceleratorAuthenticationProvider extends AbstractAcceleratorAuthen
 			throws AuthenticationException
 	{
 		super.additionalAuthenticationChecks(details, authentication);
+
+		final String username = (authentication.getPrincipal() == null) ? "NONE_PROVIDED" : authentication.getName();
+		final UserModel userModel = getUserService().getUserForUID(StringUtils.lowerCase(username));
+		final CustomerModel customerModel = (CustomerModel) userModel;
+		if (!customerModel.getIsUserActive().booleanValue())
+		{
+			LOG.info("=============BEFORE=======Locked Exception");
+			throw new LockedException("Login attempt as " + Constants.USER.ADMIN_USERGROUP + " is rejected");
+		}
 
 		// Check if the user is in role admingroup
 		if (getAdminAuthority() != null && details.getAuthorities().contains(getAdminAuthority()))
@@ -75,4 +93,6 @@ public class AcceleratorAuthenticationProvider extends AbstractAcceleratorAuthen
 	{
 		return adminAuthority;
 	}
+
+
 }

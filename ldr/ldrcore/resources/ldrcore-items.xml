@@ -132,6 +132,17 @@
 				</attribute>
 			</attributes>
 		</itemtype>
+
+	<itemtype code="Customer" autocreate="false" generate="true">
+		<attributes>
+			<attribute type="java.lang.Boolean" qualifier="isUserActive">
+				<modifiers optional="false" />
+				<persistence type="property" />
+				<defaultvalue>Boolean.FALSE</defaultvalue>
+			</attribute>
+		</attributes>
+	</itemtype>
+		
 	</typegroup>
 
 	</itemtypes>
