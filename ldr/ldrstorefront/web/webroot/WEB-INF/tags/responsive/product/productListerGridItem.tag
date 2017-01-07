@@ -15,6 +15,9 @@
 <div class="product-item">
 	<ycommerce:testId code="product_wholeProduct">
 		<a class="thumb" href="${productUrl}" title="${product.name}">
+		${product.facteAttribute}
+		${product.isSizeGuide}
+		${product.sizeText}
 			<product:productPrimaryImage product="${product}" format="product"/>
 		</a>
 		<div class="details">

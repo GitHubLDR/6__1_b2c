@@ -55,6 +55,10 @@
 						<modifiers/>
 						<persistence type="property"/>
 					</attribute>
+					<attribute type="java.lang.String" qualifier="facteAttribute" autocreate="true">
+						<modifiers read="true" write="true" optional="true" search="true" />
+						<persistence type="property" />
+					</attribute>
 				</attributes>
 			</itemtype>
 
@@ -77,6 +81,10 @@
 						<modifiers/>
 						<persistence type="property"/>
 					</attribute>
+					<attribute type="java.lang.Boolean" qualifier="isSizeGuide" autocreate="true">
+						<modifiers/>
+						<persistence type="property"/>
+					</attribute>
 				</attributes>
 
 			</itemtype>
@@ -91,6 +99,9 @@
 					           metatype="VariantAttributeDescriptor">
 						<description>Size of the product.</description>
 						<modifiers/>
+						<persistence type="property"/>
+					</attribute>
+						<attribute type="java.lang.String" qualifier="sizeText" autocreate="true">
 						<persistence type="property"/>
 					</attribute>
 				</attributes>

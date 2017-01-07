@@ -208,4 +208,30 @@
 	<alias name="defaultGiftCardFacadeImpl" alias="giftCardFacade"/>
 	<bean id="defaultGiftCardFacadeImpl" class="com.ldr.facades.giftcard.facade.impl.GiftCardFacadeImpl"/>
 	
+	<!-- PDP Varient Populator Override -->	
+	<alias name="defaultLDRVariantFullPopulator" alias="variantFullPopulator"/>
+	<bean id="defaultLDRVariantFullPopulator"
+			class="com.ldr.facades.product.converters.populator.LDRVariantFullPopulator"
+			scope="prototype" parent="defaultVariantFullPopulator">
+		<property name="variantOptionDataConverter" ref="variantOptionDataConverter"/>
+		<property name="baseOptionDataConverter" ref="baseOptionDataConverter"/>
+	</bean>
+	
+	<!-- PLP Varient Populator Override -->	
+	<alias name="ldrSearchResultVariantProductPopulator" alias="commerceSearchResultProductPopulator"/>
+    <bean id="ldrSearchResultVariantProductPopulator"
+          class="com.ldr.facades.search.converters.populator.LDRSearchResultVariantProductPopulator"
+          parent="defaultCommerceSearchResultProductPopulator">
+        <property name="categoryManager" ref="solrFirstVariantCategoryManager"/>
+        <property name="priceDataFactory" ref="priceDataFactory"/>
+    </bean>
+    
+    
+    <bean parent="modifyPopulatorList">
+		<property name="list" ref="productConverter" />
+		<property name="add" ref="defaultLDRProductPopulator" />
+	</bean>
+	
+	<bean id="defaultLDRProductPopulator" class="com.ldr.facades.product.converters.populator.LDRProductPopulator"/>	
+	
 </beans>

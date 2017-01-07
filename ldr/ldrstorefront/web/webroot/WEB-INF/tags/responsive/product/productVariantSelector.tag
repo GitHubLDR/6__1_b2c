@@ -9,7 +9,9 @@
 <%@ attribute name="product" required="true" type="de.hybris.platform.commercefacades.product.data.ProductData" %>
 
 <c:set var="showAddToCart" value="" scope="session"/>
-
+${product.isSizeGuide}
+............
+${product.sizeText}
 <c:choose>
     <%-- Verify if products is a multidimensional product --%>
     <c:when test="${product.multidimensional}">

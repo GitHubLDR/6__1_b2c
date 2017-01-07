@@ -26,5 +26,10 @@
 		<property name="name" type="String"/>
 		<property name="isOnline" type="Boolean"/>	
 	</bean>
+	<bean class="de.hybris.platform.commercefacades.product.data.ProductData">
+		<property type="java.lang.Boolean" name="isSizeGuide"/>
+		<property name="sizeText" type="java.lang.String"/>
+		<property name="facteAttribute" type="java.lang.String"/>
+	</bean>
 	
 </beans>
