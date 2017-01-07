@@ -113,6 +113,26 @@
 				</attributes>
 			</itemtype>
 		</typegroup>
+		
+		<typegroup name="ldrstore">
+		<itemtype code="GiftCard" autocreate="true" generate="true">
+			<deployment table="giftcard" typecode="10001" />
+			<attributes>
+				<attribute type="java.lang.String" qualifier="uid">
+					<persistence type="property" />
+					<modifiers read="true" write="true" optional="false" />
+				</attribute>
+				<attribute type="java.lang.String" qualifier="name">
+					<persistence type="property" />
+					<modifiers read="true" write="true" optional="true" />
+				</attribute>
+				<attribute type="java.lang.Boolean" qualifier="isOnline">
+					<persistence type="property" />
+					<modifiers read="true" write="true" optional="true" />
+				</attribute>
+			</attributes>
+		</itemtype>
+	</typegroup>
 
 	</itemtypes>
 </items>
