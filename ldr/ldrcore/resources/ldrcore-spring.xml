@@ -13,11 +13,13 @@
 
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans 
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context
-           http://www.springframework.org/schema/context/spring-context.xsd">
+           http://www.springframework.org/schema/context/spring-context.xsd  http://www.springframework.org/schema/util
+           http://www.springframework.org/schema/util/spring-util.xsd">
 
      <context:annotation-config/> 
 
@@ -469,11 +471,26 @@
 	<bean id="defaultNewCustomerRegistrationDecline"
 		class="com.ldr.workflow.customer.DefaultNewCustomerRegistrationDecline" />
 		
-		<!-- Feed Back Form DAO & Services -->
+		
 		 <alias name="defaultfeedBackDaoImpl" alias="feedBackDao"/>
 		 <bean id="defaultfeedBackDaoImpl" class="com.ldr.core.feedback.dao.impl.FeedBackDaoImpl"/>
 		 
 		 <alias name="defaultFeedBackServiceImpl" alias="feedBackService"/>
 		  <bean id="defaultFeedBackServiceImpl" class="com.ldr.core.feedback.service.impl.FeedBackServiceImpl"/>
+		  
+		  <alias name="defaultSolrQueryPostProcessors" alias="solrQueryPostProcessors" />
+			<util:list id="defaultSolrQueryPostProcessors">
+				<!-- Query post processors -->
+				<ref bean="ldrSolrQueryPostProcessor"/>
+			</util:list>
+			
+		<bean id="ldrSolrQueryPostProcessor" class="com.ldr.core.solr.query.LDRSolrQueryPostProcessor"/>
+		
+		<alias name="defaultSolrSearchResultPostProcessors" alias="solrSearchResultPostProcessors"/>
+			<util:list id="defaultSolrSearchResultPostProcessors">
+    		<ref bean="ldrSolrResultPostProcessor"/>
+		</util:list>
+ 
+    <bean id="ldrSolrResultPostProcessor" class="com.ldr.core.solr.query.LDRSolrResultPostProcessor" /> 
 	
 </beans>
