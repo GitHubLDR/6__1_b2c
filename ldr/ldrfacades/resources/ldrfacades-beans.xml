@@ -32,4 +32,12 @@
 		<property name="facteAttribute" type="java.lang.String"/>
 	</bean>
 	
+	<bean class="com.ldr.facades.feedback.data.FeedBackData">
+		<property name="name" type="java.lang.String"/>
+		<property name="email" type="java.lang.String"/>
+		<property name="comment" type="java.lang.String"/>
+	</bean>
+	
+	
+	
 </beans>

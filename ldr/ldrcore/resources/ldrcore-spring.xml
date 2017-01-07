@@ -468,5 +468,12 @@
 	<alias name="defaultNewCustomerRegistrationDecline" alias="newCustomerRegistrationDecline" />
 	<bean id="defaultNewCustomerRegistrationDecline"
 		class="com.ldr.workflow.customer.DefaultNewCustomerRegistrationDecline" />
+		
+		<!-- Feed Back Form DAO & Services -->
+		 <alias name="defaultfeedBackDaoImpl" alias="feedBackDao"/>
+		 <bean id="defaultfeedBackDaoImpl" class="com.ldr.core.feedback.dao.impl.FeedBackDaoImpl"/>
+		 
+		 <alias name="defaultFeedBackServiceImpl" alias="feedBackService"/>
+		  <bean id="defaultFeedBackServiceImpl" class="com.ldr.core.feedback.service.impl.FeedBackServiceImpl"/>
 	
 </beans>

@@ -234,4 +234,23 @@
 	
 	<bean id="defaultLDRProductPopulator" class="com.ldr.facades.product.converters.populator.LDRProductPopulator"/>	
 	
+	
+	<alias name="defaultFeedBackFacadeImpl" alias="feedBackFacade"/>
+	<bean id="defaultFeedBackFacadeImpl" class="com.ldr.facades.feedback.facade.FeedBackFacadeImpl"/>
+	
+	<!-- Configuring the Convert -->	
+	<alias name="defaultFeedBackReverseConverter" alias="feedBackReverseConverter"/>
+	<bean id="defaultFeedBackReverseConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.ldr.core.model.FeedBackModel" />
+		<property name="populators">
+			<list>
+				<ref bean="feedBackReversePopulator" />
+			</list>
+		</property>
+	</bean>
+	<!-- Configuring the populator -->
+	<bean id="feedBackReversePopulator" class="com.ldr.facades.populators.FeedBackReversePopulator"/>
+	
+	
+	
 </beans>
