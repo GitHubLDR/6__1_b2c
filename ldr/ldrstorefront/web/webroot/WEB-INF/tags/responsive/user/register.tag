@@ -17,7 +17,7 @@
 	<spring:theme code="register.description" />
 </p>
 
-<form:form method="post" commandName="registerForm" action="${action}">
+<form:form method="post" commandName="ldrRegisterForm" action="${action}">
 	<formElement:formSelectBox idKey="register.title"
 		labelKey="register.title" selectCSSClass="form-control"
 		path="titleCode" mandatory="true" skipBlank="false"
@@ -35,6 +35,25 @@
 		path="pwd" inputCSS="form-control password-strength" mandatory="true" />
 	<formElement:formPasswordBox idKey="register.checkPwd"
 		labelKey="register.checkPwd" path="checkPwd" inputCSS="form-control"
+		mandatory="true" />
+	<formElement:formInputBox idKey="register.mobileNumber"
+		labelKey="register.mobileNumber" path="mobileNumber" inputCSS="form-control"
+		mandatory="true" />
+	<formElement:formInputBox idKey="register.line1"
+		labelKey="register.line1" path="line1" inputCSS="form-control"
+		mandatory="true" />
+	<formElement:formInputBox idKey="register.line2"
+		labelKey="register.line2" path="line2" inputCSS="form-control"
+		mandatory="true" />
+	<formElement:formInputBox idKey="register.town"
+		labelKey="register.town" path="town" inputCSS="form-control"
+		mandatory="true" />
+		<formElement:formSelectBox idKey="register.countryIso"
+				labelKey="register.countryIso" path="countryIso" mandatory="true"
+				skipBlank="false" skipBlankMessageKey="Country"
+				items="${countries}" itemValue="isocode" selectCSSClass="form-control" />
+		<formElement:formInputBox idKey="register.postalCode"
+		labelKey="register.postalCode" path="postalCode" inputCSS="form-control"
 		mandatory="true" />
 	<input type="hidden" id="recaptchaChallangeAnswered"
 		value="${requestScope.recaptchaChallangeAnswered}" />

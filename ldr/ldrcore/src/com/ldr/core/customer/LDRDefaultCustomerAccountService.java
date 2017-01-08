@@ -3,8 +3,11 @@
  */
 package com.ldr.core.customer;
 
+import static de.hybris.platform.servicelayer.util.ServicesUtil.validateParameterNotNull;
+
 import de.hybris.platform.commerceservices.customer.DuplicateUidException;
 import de.hybris.platform.commerceservices.customer.impl.DefaultCustomerAccountService;
+import de.hybris.platform.core.model.user.AddressModel;
 import de.hybris.platform.core.model.user.CustomerModel;
 import de.hybris.platform.servicelayer.model.ModelService;
 import de.hybris.platform.servicelayer.user.UserService;
@@ -15,6 +18,9 @@ import de.hybris.platform.workflow.model.WorkflowActionModel;
 import de.hybris.platform.workflow.model.WorkflowModel;
 import de.hybris.platform.workflow.model.WorkflowTemplateModel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
@@ -24,7 +30,7 @@ import org.apache.log4j.Logger;
  * @author lmr_pad
  *
  */
-public class LDRDefaultCustomerAccountService extends DefaultCustomerAccountService
+public class LDRDefaultCustomerAccountService extends DefaultCustomerAccountService implements LDRCustomerAccountService
 {
 
 	private final Logger LOG = Logger.getLogger(LDRDefaultCustomerAccountService.class);
@@ -46,7 +52,7 @@ public class LDRDefaultCustomerAccountService extends DefaultCustomerAccountServ
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * de.hybris.platform.commerceservices.customer.impl.DefaultCustomerAccountService#internalSaveCustomer(de.hybris
 	 * .platform.core.model.user.CustomerModel)
@@ -71,6 +77,33 @@ public class LDRDefaultCustomerAccountService extends DefaultCustomerAccountServ
 		}
 
 		this.workflowProcessingService.startWorkflow(workflow);
+	}
+
+
+	@Override
+	public void saveAddressEntryWhileRegistring(final CustomerModel customerModel, final AddressModel addressModel)
+	{
+		validateParameterNotNull(customerModel, "Customer model cannot be null");
+		validateParameterNotNull(addressModel, "Address model cannot be null");
+		final List<AddressModel> customerAddresses = new ArrayList<AddressModel>();
+		customerAddresses.addAll(customerModel.getAddresses());
+		if (customerModel.getAddresses().contains(addressModel))
+		{
+			getModelService().save(addressModel);
+		}
+		else
+		{
+			addressModel.setOwner(customerModel);
+			getModelService().save(addressModel);
+			getModelService().refresh(addressModel);
+			customerAddresses.add(addressModel);
+		}
+		customerModel.setAddresses(customerAddresses);
+		customerModel.setDefaultShipmentAddress(addressModel);
+		customerModel.setDefaultPaymentAddress(addressModel);
+
+		getModelService().save(customerModel);
+		getModelService().refresh(customerModel);
 	}
 
 }

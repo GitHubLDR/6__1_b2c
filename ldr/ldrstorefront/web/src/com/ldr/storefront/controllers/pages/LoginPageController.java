@@ -13,15 +13,22 @@
  */
 package com.ldr.storefront.controllers.pages;
 
+import de.hybris.platform.acceleratorfacades.order.AcceleratorCheckoutFacade;
+import de.hybris.platform.acceleratorstorefrontcommons.breadcrumb.Breadcrumb;
+import de.hybris.platform.acceleratorstorefrontcommons.controllers.ThirdPartyConstants;
 import de.hybris.platform.acceleratorstorefrontcommons.controllers.pages.AbstractLoginPageController;
 import de.hybris.platform.acceleratorstorefrontcommons.controllers.util.GlobalMessages;
 import de.hybris.platform.acceleratorstorefrontcommons.forms.GuestForm;
 import de.hybris.platform.acceleratorstorefrontcommons.forms.LoginForm;
-import de.hybris.platform.acceleratorstorefrontcommons.forms.RegisterForm;
 import de.hybris.platform.cms2.exceptions.CMSItemNotFoundException;
 import de.hybris.platform.cms2.model.pages.AbstractPageModel;
+import de.hybris.platform.cms2.model.pages.ContentPageModel;
+import de.hybris.platform.commercefacades.user.data.CountryData;
 import de.hybris.platform.commercefacades.user.data.RegisterData;
 import de.hybris.platform.commerceservices.customer.DuplicateUidException;
+
+import java.util.Collection;
+import java.util.Collections;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +42,7 @@ import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,6 +50,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ldr.storefront.controllers.ControllerConstants;
+import com.ldr.storefront.controllers.forms.LDRRegisterForm;
 
 
 /**
@@ -55,6 +64,15 @@ public class LoginPageController extends AbstractLoginPageController
 	private static final String FORM_GLOBAL_ERROR = "form.global.error";
 	private static final Logger LOGGER = Logger.getLogger(LoginPageController.class);
 	private HttpSessionRequestCache httpSessionRequestCache;
+
+	@Resource(name = "acceleratorCheckoutFacade")
+	private AcceleratorCheckoutFacade checkoutFacade;
+
+	@ModelAttribute("countries")
+	public Collection<CountryData> getCountries()
+	{
+		return checkoutFacade.getDeliveryCountries();
+	}
 
 	@Override
 	protected String getView()
@@ -108,7 +126,7 @@ public class LoginPageController extends AbstractLoginPageController
 	}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String doRegister(@RequestHeader(value = "referer", required = false) final String referer, final RegisterForm form,
+	public String doRegister(@RequestHeader(value = "referer", required = false) final String referer, final LDRRegisterForm form,
 			final BindingResult bindingResult, final Model model, final HttpServletRequest request,
 			final HttpServletResponse response, final RedirectAttributes redirectModel) throws CMSItemNotFoundException
 	{
@@ -116,10 +134,9 @@ public class LoginPageController extends AbstractLoginPageController
 		return processRegisterUserRequest(referer, form, bindingResult, model, request, response, redirectModel);
 	}
 
-	@Override
-	protected String processRegisterUserRequest(final String referer, final RegisterForm form, final BindingResult bindingResult,
-			final Model model, final HttpServletRequest request, final HttpServletResponse response,
-			final RedirectAttributes redirectModel) throws CMSItemNotFoundException
+	protected String processRegisterUserRequest(final String referer, final LDRRegisterForm form,
+			final BindingResult bindingResult, final Model model, final HttpServletRequest request,
+			final HttpServletResponse response, final RedirectAttributes redirectModel) throws CMSItemNotFoundException
 	{
 		if (bindingResult.hasErrors())
 		{
@@ -136,6 +153,13 @@ public class LoginPageController extends AbstractLoginPageController
 		data.setLogin(form.getEmail());
 		data.setPassword(form.getPwd());
 		data.setTitleCode(form.getTitleCode());
+		data.setMobileNumber(form.getMobileNumber());
+		data.setLine1(form.getLine1());
+		data.setLine2(form.getLine2());
+		data.setTown(form.getTown());
+		data.setCountryIso(form.getCountryIso());
+		data.setPostalCode(form.getPostalCode());
+
 		try
 		{
 			getCustomerFacade().register(data);
@@ -156,5 +180,48 @@ public class LoginPageController extends AbstractLoginPageController
 		}
 
 		return REDIRECT_PREFIX + getSuccessRedirect(request, response);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * de.hybris.platform.acceleratorstorefrontcommons.controllers.pages.AbstractLoginPageController#getDefaultLoginPage
+	 * (boolean, javax.servlet.http.HttpSession, org.springframework.ui.Model)
+	 */
+	@Override
+	protected String getDefaultLoginPage(final boolean loginError, final HttpSession session, final Model model)
+			throws CMSItemNotFoundException
+	{
+		// YTODO Auto-generated method stub
+
+		final LoginForm loginForm = new LoginForm();
+		model.addAttribute(loginForm);
+		model.addAttribute("ldrRegisterForm", new LDRRegisterForm());
+		model.addAttribute(new GuestForm());
+		model.addAttribute("countries", getCountries());
+
+		final String username = (String) session.getAttribute(SPRING_SECURITY_LAST_USERNAME);
+		if (username != null)
+		{
+			session.removeAttribute(SPRING_SECURITY_LAST_USERNAME);
+		}
+
+		loginForm.setJ_username(username);
+		storeCmsPageInModel(model, getCmsPage());
+		setUpMetaDataForContentPage(model, (ContentPageModel) getCmsPage());
+		model.addAttribute(ThirdPartyConstants.SeoRobots.META_ROBOTS, ThirdPartyConstants.SeoRobots.INDEX_NOFOLLOW);
+
+		final Breadcrumb loginBreadcrumbEntry = new Breadcrumb("#", getMessageSource().getMessage("header.link.login", null,
+				"header.link.login", getI18nService().getCurrentLocale()), null);
+		model.addAttribute("breadcrumbs", Collections.singletonList(loginBreadcrumbEntry));
+		if (loginError)
+		{
+			model.addAttribute("loginError", Boolean.valueOf(loginError));
+			GlobalMessages.addErrorMessage(model, "login.error.account.not.found.title");
+		}
+
+		return getView();
+
 	}
 }
