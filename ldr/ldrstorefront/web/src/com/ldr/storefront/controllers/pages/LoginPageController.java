@@ -51,6 +51,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ldr.storefront.controllers.ControllerConstants;
 import com.ldr.storefront.controllers.forms.LDRRegisterForm;
+import com.ldr.storefront.form.validations.LDRRegistrationValidator;
 
 
 /**
@@ -67,6 +68,9 @@ public class LoginPageController extends AbstractLoginPageController
 
 	@Resource(name = "acceleratorCheckoutFacade")
 	private AcceleratorCheckoutFacade checkoutFacade;
+
+	@Resource(name = "ldrRegistrationValidator")
+	private LDRRegistrationValidator ldrRegistrationValidator;
 
 	@ModelAttribute("countries")
 	public Collection<CountryData> getCountries()
@@ -130,7 +134,7 @@ public class LoginPageController extends AbstractLoginPageController
 			final BindingResult bindingResult, final Model model, final HttpServletRequest request,
 			final HttpServletResponse response, final RedirectAttributes redirectModel) throws CMSItemNotFoundException
 	{
-		getRegistrationValidator().validate(form, bindingResult);
+		ldrRegistrationValidator.validate(form, bindingResult);
 		return processRegisterUserRequest(referer, form, bindingResult, model, request, response, redirectModel);
 	}
 
@@ -140,7 +144,7 @@ public class LoginPageController extends AbstractLoginPageController
 	{
 		if (bindingResult.hasErrors())
 		{
-			model.addAttribute(form);
+			model.addAttribute("ldrRegisterForm", form);
 			model.addAttribute(new LoginForm());
 			model.addAttribute(new GuestForm());
 			GlobalMessages.addErrorMessage(model, FORM_GLOBAL_ERROR);

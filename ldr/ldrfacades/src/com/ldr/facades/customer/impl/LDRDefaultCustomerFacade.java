@@ -10,6 +10,7 @@ import de.hybris.platform.commercefacades.i18n.I18NFacade;
 import de.hybris.platform.commercefacades.user.UserFacade;
 import de.hybris.platform.commercefacades.user.data.AddressData;
 import de.hybris.platform.commercefacades.user.data.RegisterData;
+import de.hybris.platform.commercefacades.user.exceptions.PasswordMismatchException;
 import de.hybris.platform.commerceservices.customer.DuplicateUidException;
 import de.hybris.platform.core.model.user.AddressModel;
 import de.hybris.platform.core.model.user.CustomerModel;
@@ -41,7 +42,7 @@ public class LDRDefaultCustomerFacade extends DefaultCustomerFacade implements L
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see
 	 * de.hybris.platform.commercefacades.customer.impl.DefaultCustomerFacade#register(de.hybris.platform.commercefacades
 	 * .user.data.RegisterData)
@@ -101,5 +102,26 @@ public class LDRDefaultCustomerFacade extends DefaultCustomerFacade implements L
 
 		// Store the address against the user
 		customerAccountService.saveAddressEntryWhileRegistring(newCustomer, newAddressModel);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.ldr.facades.customer.LDRCustomerFacade#changeMobile(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public void changeMobile(final String newMobile, final String currentPassword) throws DuplicateUidException,
+			PasswordMismatchException
+	{
+		// YTODO Auto-generated method stub
+		try
+		{
+			customerAccountService.changeMobile(newMobile, currentPassword);
+		}
+		catch (final PasswordMismatchException pse)
+		{
+			throw new PasswordMismatchException(pse);
+		}
+
 	}
 }

@@ -251,6 +251,18 @@
 	<!-- Configuring the populator -->
 	<bean id="feedBackReversePopulator" class="com.ldr.facades.populators.FeedBackReversePopulator"/>
 	
+	<alias name="defaultCustomerConverter" alias="customerConverter"/>
+	<bean id="defaultCustomerConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.commercefacades.user.data.CustomerData"/>
+		<property name="populators">
+			<list>
+				<ref bean="ldrCustomerPopulator"/>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="ldrCustomerPopulator" class="com.ldr.facades.populators.LDRCustomerPopulator"/>
+	
 	
 	
 </beans>

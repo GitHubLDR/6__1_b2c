@@ -46,6 +46,10 @@
 		<property name="countryIso" type="java.lang.String"/>
 		<property name="postalCode" type="java.lang.String"/>
 	</bean>	
+	
+	<bean class="de.hybris.platform.commercefacades.user.data.CustomerData">
+		<property name="mobileNumber" type="java.lang.String"/>
+	</bean>
 
 	
 	

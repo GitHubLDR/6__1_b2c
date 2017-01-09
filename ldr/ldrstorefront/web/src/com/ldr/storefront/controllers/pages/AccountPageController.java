@@ -1,5 +1,5 @@
 /*
- * [y] hybris Platform
+77777777777777777 * [y] hybris Platform
  *
  * Copyright (c) 2000-2016 hybris AG
  * All rights reserved.
@@ -9,7 +9,7 @@
  * Information and shall use it only in accordance with the terms of the
  * license agreement you entered into with hybris.
  *
- *  
+ *
  */
 package com.ldr.storefront.controllers.pages;
 
@@ -33,7 +33,6 @@ import de.hybris.platform.acceleratorstorefrontcommons.forms.verification.Addres
 import de.hybris.platform.cms2.exceptions.CMSItemNotFoundException;
 import de.hybris.platform.commercefacades.address.AddressVerificationFacade;
 import de.hybris.platform.commercefacades.address.data.AddressVerificationResult;
-import de.hybris.platform.commercefacades.customer.CustomerFacade;
 import de.hybris.platform.commercefacades.i18n.I18NFacade;
 import de.hybris.platform.commercefacades.order.CheckoutFacade;
 import de.hybris.platform.commercefacades.order.OrderFacade;
@@ -58,7 +57,6 @@ import de.hybris.platform.commerceservices.search.pagedata.SearchPageData;
 import de.hybris.platform.commerceservices.util.ResponsiveUtils;
 import de.hybris.platform.servicelayer.exceptions.UnknownIdentifierException;
 import de.hybris.platform.util.Config;
-import com.ldr.storefront.controllers.ControllerConstants;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -86,6 +84,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.ldr.facades.customer.LDRCustomerFacade;
+import com.ldr.storefront.controllers.ControllerConstants;
+import com.ldr.storefront.controllers.forms.UpdateMobileForm;
 
 
 /**
@@ -140,6 +142,7 @@ public class AccountPageController extends AbstractSearchPageController
 	private static final String ORDER_DETAIL_CMS_PAGE = "order";
 
 	private static final Logger LOG = Logger.getLogger(AccountPageController.class);
+	private static final String UPDATE_MOBILE_CMS_PAGE = "update-mobile";
 
 	@Resource(name = "orderFacade")
 	private OrderFacade orderFacade;
@@ -151,7 +154,7 @@ public class AccountPageController extends AbstractSearchPageController
 	private UserFacade userFacade;
 
 	@Resource(name = "customerFacade")
-	private CustomerFacade customerFacade;
+	private LDRCustomerFacade customerFacade;
 
 	@Resource(name = "accountBreadcrumbBuilder")
 	private ResourceBreadcrumbBuilder accountBreadcrumbBuilder;
@@ -1002,4 +1005,62 @@ public class AccountPageController extends AbstractSearchPageController
 				"text.account.profile.paymentCart.removed");
 		return REDIRECT_TO_PAYMENT_INFO_PAGE;
 	}
+
+
+	@RequestMapping(value = "/update-mobile", method = RequestMethod.GET)
+	@RequireHardLogIn
+	public String editMobile(final Model model) throws CMSItemNotFoundException
+	{
+		final CustomerData customerData = customerFacade.getCurrentCustomer();
+		final UpdateMobileForm updateMobileForm = new UpdateMobileForm();
+
+		updateMobileForm.setMobile(customerData.getMobileNumber());
+
+		model.addAttribute("updateMobileForm", updateMobileForm);
+
+		storeCmsPageInModel(model, getContentPageForLabelOrId(UPDATE_MOBILE_CMS_PAGE));
+		setUpMetaDataForContentPage(model, getContentPageForLabelOrId(UPDATE_MOBILE_CMS_PAGE));
+		model.addAttribute(BREADCRUMBS_ATTR, accountBreadcrumbBuilder.getBreadcrumbs(TEXT_ACCOUNT_PROFILE));
+		model.addAttribute(ThirdPartyConstants.SeoRobots.META_ROBOTS, ThirdPartyConstants.SeoRobots.NOINDEX_NOFOLLOW);
+		return getViewForPage(model);
+	}
+
+	@RequestMapping(value = "/update-mobile", method = RequestMethod.POST)
+	@RequireHardLogIn
+	public String updateMobile(final UpdateMobileForm updateMobileForm, final BindingResult bindingResult, final Model model,
+			final RedirectAttributes redirectAttributes) throws CMSItemNotFoundException
+	{
+		//getEmailValidator().validate(updateMobileForm, bindingResult);
+		String returnAction = REDIRECT_TO_UPDATE_EMAIL_PAGE;
+
+		if (!bindingResult.hasErrors() && !updateMobileForm.getMobile().equals(updateMobileForm.getMobile()))
+		{
+			bindingResult.rejectValue("chkEmail", "validation.checkEmail.equals", new Object[] {}, "validation.checkEmail.equals");
+		}
+
+		if (bindingResult.hasErrors())
+		{
+			returnAction = setErrorMessagesAndCMSPage(model, UPDATE_EMAIL_CMS_PAGE);
+		}
+		else
+		{
+			try
+			{
+				customerFacade.changeMobile(updateMobileForm.getMobile(), updateMobileForm.getPassword());
+			}
+			catch (final DuplicateUidException e)
+			{
+				bindingResult.rejectValue("email", "profile.email.unique");
+				returnAction = setErrorMessagesAndCMSPage(model, UPDATE_EMAIL_CMS_PAGE);
+			}
+			catch (final PasswordMismatchException passwordMismatchException)
+			{
+				bindingResult.rejectValue("password", PROFILE_CURRENT_PASSWORD_INVALID);
+				returnAction = setErrorMessagesAndCMSPage(model, UPDATE_EMAIL_CMS_PAGE);
+			}
+		}
+
+		return REDIRECT_PREFIX + "/";
+	}
+
 }

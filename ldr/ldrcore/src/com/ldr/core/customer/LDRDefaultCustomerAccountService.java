@@ -6,6 +6,7 @@ package com.ldr.core.customer;
 import static de.hybris.platform.servicelayer.util.ServicesUtil.validateParameterNotNull;
 
 import de.hybris.platform.commerceservices.customer.DuplicateUidException;
+import de.hybris.platform.commerceservices.customer.PasswordMismatchException;
 import de.hybris.platform.commerceservices.customer.impl.DefaultCustomerAccountService;
 import de.hybris.platform.core.model.user.AddressModel;
 import de.hybris.platform.core.model.user.CustomerModel;
@@ -24,6 +25,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
+import org.springframework.util.Assert;
 
 
 /**
@@ -104,6 +106,44 @@ public class LDRDefaultCustomerAccountService extends DefaultCustomerAccountServ
 
 		getModelService().save(customerModel);
 		getModelService().refresh(customerModel);
+	}
+
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see com.ldr.core.customer.LDRCustomerAccountService#changeMobile(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public void changeMobile(final String newMobile, final String currentPassword)
+	{
+		// YTODO Auto-generated method stub
+
+		Assert.hasText(newMobile, "The field [newMobile] cannot be empty");
+		Assert.hasText(currentPassword, "The field [currentPassword] cannot be empty");
+
+		final CustomerModel currentUser = (CustomerModel) getUserService().getCurrentUser();
+		currentUser.setMobileNumber(newMobile);
+
+		try
+		{
+			if (!getPasswordEncoderService().isValid(currentUser, currentPassword))
+			{
+				throw new PasswordMismatchException(currentUser.getUid());
+			}
+
+			getModelService().save(currentUser);
+
+			// Update the password
+			getUserService().setPassword(currentUser, currentPassword, currentUser.getPasswordEncoding());
+			getModelService().save(currentUser);
+		}
+		catch (final PasswordMismatchException e)
+		{
+			// YTODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 }

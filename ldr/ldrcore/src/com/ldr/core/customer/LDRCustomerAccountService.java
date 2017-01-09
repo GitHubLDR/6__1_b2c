@@ -14,5 +14,15 @@ import de.hybris.platform.core.model.user.CustomerModel;
  */
 public interface LDRCustomerAccountService extends CustomerAccountService
 {
+	/**
+	 * @param customerModel
+	 * @param addressModel
+	 */
 	public void saveAddressEntryWhileRegistring(final CustomerModel customerModel, final AddressModel addressModel);
+
+	/**
+	 * @param newMobile
+	 * @param currentPassword
+	 */
+	public void changeMobile(String newMobile, String currentPassword);
 }
