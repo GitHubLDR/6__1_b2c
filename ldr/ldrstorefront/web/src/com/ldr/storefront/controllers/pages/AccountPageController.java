@@ -143,6 +143,7 @@ public class AccountPageController extends AbstractSearchPageController
 
 	private static final Logger LOG = Logger.getLogger(AccountPageController.class);
 	private static final String UPDATE_MOBILE_CMS_PAGE = "update-mobile";
+	private static final String REDIRECT_TO_UPDATE_MOBILE_PAGE = REDIRECT_PREFIX + "/my-account/update-mobile";
 
 	@Resource(name = "orderFacade")
 	private OrderFacade orderFacade;
@@ -1031,7 +1032,7 @@ public class AccountPageController extends AbstractSearchPageController
 			final RedirectAttributes redirectAttributes) throws CMSItemNotFoundException
 	{
 		//getEmailValidator().validate(updateMobileForm, bindingResult);
-		String returnAction = REDIRECT_TO_UPDATE_EMAIL_PAGE;
+		String returnAction = REDIRECT_TO_UPDATE_MOBILE_PAGE;
 
 		if (!bindingResult.hasErrors() && !updateMobileForm.getMobile().equals(updateMobileForm.getMobile()))
 		{
@@ -1040,7 +1041,7 @@ public class AccountPageController extends AbstractSearchPageController
 
 		if (bindingResult.hasErrors())
 		{
-			returnAction = setErrorMessagesAndCMSPage(model, UPDATE_EMAIL_CMS_PAGE);
+			returnAction = setErrorMessagesAndCMSPage(model, UPDATE_MOBILE_CMS_PAGE);
 		}
 		else
 		{
@@ -1051,12 +1052,12 @@ public class AccountPageController extends AbstractSearchPageController
 			catch (final DuplicateUidException e)
 			{
 				bindingResult.rejectValue("email", "profile.email.unique");
-				returnAction = setErrorMessagesAndCMSPage(model, UPDATE_EMAIL_CMS_PAGE);
+				returnAction = setErrorMessagesAndCMSPage(model, UPDATE_MOBILE_CMS_PAGE);
 			}
 			catch (final PasswordMismatchException passwordMismatchException)
 			{
 				bindingResult.rejectValue("password", PROFILE_CURRENT_PASSWORD_INVALID);
-				returnAction = setErrorMessagesAndCMSPage(model, UPDATE_EMAIL_CMS_PAGE);
+				returnAction = setErrorMessagesAndCMSPage(model, UPDATE_MOBILE_CMS_PAGE);
 			}
 		}
 
