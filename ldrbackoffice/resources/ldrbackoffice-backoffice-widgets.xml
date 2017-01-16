@@ -10,7 +10,13 @@
   ~ license agreement you entered into with hybris.
   --><widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.hybris.com/schema/cockpitng/widgets.xsd">
 
-    
+    <!--</context>-->
+	<widget-extension widgetId="backofficeMainSlot">
+	<widget id="ldr-Perspective" widgetDefinitionId="com.hybris.cockpitng.borderlayout"
+		slotId="perspectives" title="ldr.perspective.name" template="false">
+		<setting key="perspectiveImageUrl" value="/cng/images/sgm-logo-large.png" type="String" />
+	</widget>
+</widget-extension>
 
     <widget-connection inputId="input" outputId="nodeSelected" sourceWidgetId="ldrbackoffice-explorer-tree" targetWidgetId="ldrbackoffice-tree-node-adapter"/>
     <widget-connection inputId="genericInput" outputId="true" sourceWidgetId="ldrbackoffice-tree-node-adapter" targetWidgetId="ldrbackoffice-typecode-extractor"/>
