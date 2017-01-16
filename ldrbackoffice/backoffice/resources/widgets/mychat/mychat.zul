@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+
+<widget xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.zkoss.org/2005/zul">
+	<div>
+		<textbox id="msgInput"/>
+		<button id="sendBtns" label="Send"/>
+	</div>
+	<div>
+		<label id="lastMsgLabel" value="No message."></label>
+	</div>
+</widget>

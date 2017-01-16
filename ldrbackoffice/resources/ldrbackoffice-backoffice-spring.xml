@@ -22,5 +22,7 @@
   		<property name="location" value="/ldrbackoffice-backoffice-labels/"/>
   		<property name="name" value="labels"/>
   	</bean>
+  	
+  	<bean id="searchService" class="com.ldrbackoffice.services.SearchService"></bean>
 
 </beans>
