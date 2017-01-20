@@ -12,7 +12,7 @@
 
     <!--</context>-->
 	<widget-extension widgetId="backofficeMainSlot">
-	<widget id="ldr-Perspective" widgetDefinitionId="com.hybris.cockpitng.borderlayout" slotId="perspectives" title="ldr.perspective.name" template="false">
+	<widget id="ldr-Perspective" widgetDefinitionId="com.hybris.cockpitng.borderlayout" slotId="perspectives" title="ldr.perspective.name" template="false" access="ldrbackofficesupportadministratorgroup">
 		<setting key="perspectiveImageUrl" value="/cng/images/sgm-logo-large.png" type="String" />		   
 		   		 <widget id="mychat1" widgetDefinitionId="com.ldrbackoffice.widgets.mychat" template="false" slotId="leftSlot" title="ldr.perspective.name1"/>
 		   		  <widget id="mychat2" widgetDefinitionId="com.ldrbackoffice.widgets.mychat" template="false" slotId="rightSlot" title="ldr.perspective.name2"/>
