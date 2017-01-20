@@ -7,23 +7,47 @@
 		-->
 				
 		<path dir="${HYBRIS_BIN_DIR}" />
+		<!-- <path autoload="true" dir="${HYBRIS_BIN_DIR}/ext-backoffice"/> -->
 		
 
 										
 		<!-- ext-template -->
 		<extension name="yempty" />
 		<extension name="yhacext" />
+		<extension name="backoffice"/>
+		<extension name="platformbackoffice"/>
+		<extension name="cockpit"/>
 		
-<extension dir="E:\hybrisworkspace\HYBRISCOMM_6_B2C\hybris\bin/custom/ldr/ldrfulfilmentprocess"/>
-<extension dir="E:\hybrisworkspace\HYBRISCOMM_6_B2C\hybris\bin/custom/ldr/ldrcore"/>
-<extension dir="E:\hybrisworkspace\HYBRISCOMM_6_B2C\hybris\bin/custom/ldr/ldrinitialdata"/>
-<extension dir="E:\hybrisworkspace\HYBRISCOMM_6_B2C\hybris\bin/custom/ldr/ldrfacades"/>
-<extension dir="E:\hybrisworkspace\HYBRISCOMM_6_B2C\hybris\bin/custom/ldr/ldrtest"/>
-<extension dir="E:\hybrisworkspace\HYBRISCOMM_6_B2C\hybris\bin/custom/ldr/ldrstorefront"/>
-<extension dir="E:\hybrisworkspace\HYBRISCOMM_6_B2C\hybris\bin/custom/ldr/ldrcockpits"/>
+		
+<extension name="ldrfulfilmentprocess"/>
+<extension name="ldrcore"/>
+<extension name="ldrinitialdata"/>
+<extension name="ldrfacades"/>
+<!--<extension name="ldrtest"/>-->
+<extension name="ldrbackoffice"/>
+<extension name="ldrstorefront"/>
+<extension name="ldrcockpits"/>
 
-<extension dir="${HYBRIS_BIN_DIR}/ext-integration/datahubadapter" />
-<extension dir="${HYBRIS_BIN_DIR}/ext-integration/datahubbackoffice" />
+<extension dir="${HYBRIS_BIN_DIR}/ext-backoffice/customersupportbackoffice" />
+<!-- <extension dir="$d{HYBRIS_BIN_DIR}/ext-integration/datahubadapter" />
+<extension dir="${HYBRIS_BIN_DIR}/ext-integration/datahubbackoffice" /> 
+
+<extension dir="${HYBRIS_BIN_DIR}/ext-backoffice/basecommercebackoffice" />
+<extension dir="${HYBRIS_BIN_DIR}/ext-backoffice/commercesearchbackoffice" />
+<extension dir="${HYBRIS_BIN_DIR}/ext-backoffice/commerceservicesbackoffice" />
+<extension dir="${HYBRIS_BIN_DIR}/ext-backoffice/promotionenginebackoffice" />
+<extension dir="${HYBRIS_BIN_DIR}/ext-backoffice/promotionsbackoffice" /> 
+<extension dir="${HYBRIS_BIN_DIR}/ext-backoffice/rulebuilderbackoffice" />
+<extension dir="${HYBRIS_BIN_DIR}/ext-backoffice/ruleenginebackoffice" />
+<extension dir="${HYBRIS_BIN_DIR}/ext-backoffice/solrfacetsearchbackoffice" />
+<extension dir="${HYBRIS_BIN_DIR}/ext-backoffice/subscriptionbackoffice" />
+<extension dir="${HYBRIS_BIN_DIR}/ext-backoffice/voucherbackoffice" />
+<extension dir="${HYBRIS_BIN_DIR}/ext-backoffice/warehousingbackoffice" />
+<extension dir="${HYBRIS_BIN_DIR}/ext-backoffice/webservicescommonsbackoffice" /> -->
+
+
+
+
 				
 	</extensions>
 </hybrisconfig>
