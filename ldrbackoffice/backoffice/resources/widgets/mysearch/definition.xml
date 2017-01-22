@@ -10,4 +10,6 @@
 	<author>Me</author>
 	<version>0.1</version>
 	<controller class="com.ldrbackoffice.widgets.MySearchController" />
+	
+	
 </widget-definition>

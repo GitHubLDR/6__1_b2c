@@ -5,6 +5,7 @@ package com.ldrbackoffice.widgets;
 
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zul.Label;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
 
 import com.hybris.cockpitng.annotations.SocketEvent;
@@ -25,6 +26,12 @@ public class MyChatController extends DefaultWidgetController
 	public void sendMsg()
 	{
 		sendOutput("outgoingMsg", msgInput.getText());
+
+		if (this.getWidgetSettings().getBoolean("history"))
+		{
+			// put some logic here;
+			Messagebox.show("Saved to history");
+		}
 
 	}
 

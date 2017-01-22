@@ -11,12 +11,37 @@
   ~ license agreement you entered into with hybris.
   -->
 
-<config xmlns="http://www.hybris.com/cockpit/config">
+<config xmlns="http://www.hybris.com/cockpit/config" xmlns:list-view="http://www.hybris.com/cockpitng/component/listView"
+        xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch"
+        xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch"
+        xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea"
+        xmlns:df="http://www.hybris.com/cockpitng/component/dynamicForms"
+		xmlns:wz="http://www.hybris.com/cockpitng/config/wizard-config"
+        xmlns:n="http://www.hybris.com/cockpitng/config/explorertree"
+        xmlns:y="http://www.hybris.com/cockpit/config/hybris">
 
 	<!-- ldrbackoffice UI configuration should be provided here -->
 
 	<!--<context component="component-code" module="ldrbackoffice">-->
 		<!--Please check documentation for code snippets for specific components-->
 	<!--</context>-->
+<!-- This piece of code take the user to his authorised prespective  -->
+ <context component="perspective-chooser" principal="ldrbackofficeadministratorrole">
+		<y:perspective-chooser xmlns:y="http://www.hybris.com/cockpitng/config/perspectiveChooser">
+			<y:authority name="ldrbackofficeadministratorrole">
+				<y:perspective id="ldr-Perspective"/>				
+			</y:authority>
+		</y:perspective-chooser>
+	</context>
+	<context component="perspective-chooser" principal="ldrbackofficesupportmanagerrole">
+		<y:perspective-chooser xmlns:y="http://www.hybris.com/cockpitng/config/perspectiveChooser">
+			<y:authority name="ldrbackofficesupportmanagerrole">
+				<y:perspective id="ldr-Perspective"/>
+			</y:authority>
+		</y:perspective-chooser>
+	</context> 
+	
+	
+	 
 
 </config>

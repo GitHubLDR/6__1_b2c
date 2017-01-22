@@ -2,8 +2,8 @@
 # Import new Customer Support Groups
 #
 INSERT_UPDATE BackofficeRole;UID[unique=true];locname[lang=en];backOfficeLoginDisabled;authorities
-;ldrbackofficeadministratorrole;LDR BackOffice Administrator Role;FALSE;ldrbackofficeadministratorrole
-;ldrbackofficesupportmanagerrole;LDR BackOffice Support Manager Role;FALSE;ldrbackofficesupportmanagerrole
+;ldrbackofficeadministratorrole;LDR BackOffice Administrator Role;FALSE;ldrbackofficeadministratorrole,backofficeadmin
+;ldrbackofficesupportmanagerrole;LDR BackOffice Support Manager Role;FALSE;ldrbackofficesupportmanagerrole,backofficeadmin
 ;;;;;
 INSERT_UPDATE UserGroup;UID[unique=true];locname[lang=en];groups(uid);description
 ;ldrbackofficesupportadministratorgroup;LDR BackOffice Support Administrator Group;employeegroup,ldrbackofficeadministratorrole,ldrbackofficesupportmanagerrole;The LDR Back Office Support Administrator Group has access to the Customer Support Backoffice's Customer Support Administrator Group and Customer Support Agent Group views AND/OR the Assisted Service Module.

@@ -13,4 +13,10 @@
 		<keyword>Chat</keyword>
 	</keywords>
 	<controller  class="com.ldrbackoffice.widgets.MyChatController"/>	
+	
+	<settings>
+		<setting key="multi" type="Boolean" default-value="false"/>
+		<setting key="history" type="Boolean" default-value="false"/>
+	</settings>
+	
 </widget-definition>
