@@ -236,7 +236,11 @@
 	
 	
 	<alias name="defaultFeedBackFacadeImpl" alias="feedBackFacade"/>
-	<bean id="defaultFeedBackFacadeImpl" class="com.ldr.facades.feedback.facade.FeedBackFacadeImpl"/>
+	<bean id="defaultFeedBackFacadeImpl" class="com.ldr.facades.feedback.facade.FeedBackFacadeImpl" >
+	<property name="feedBackReverseConverter" ref="feedBackReverseConverter"/>
+	<property name="feedBackService" ref="feedBackService"/>
+	<property name="modelService" ref="modelService"/>
+	</bean>
 	
 	<!-- Configuring the Convert -->	
 	<alias name="defaultFeedBackReverseConverter" alias="feedBackReverseConverter"/>
