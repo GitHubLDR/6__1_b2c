@@ -3,9 +3,8 @@
  */
 package com.ldr.core.feedback.service.impl;
 
-import javax.annotation.Resource;
-
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Required;
 
 import com.ldr.core.feedback.dao.FeedBackDao;
 import com.ldr.core.feedback.service.FeedBackService;
@@ -20,8 +19,25 @@ public class FeedBackServiceImpl implements FeedBackService
 {
 	protected static final Logger LOG = Logger.getLogger(FeedBackServiceImpl.class);
 
-	@Resource
-	FeedBackDao feedBackDao;
+	private FeedBackDao feedBackDao;
+
+	/**
+	 * @return the feedBackDao
+	 */
+	protected FeedBackDao getFeedBackDao()
+	{
+		return feedBackDao;
+	}
+
+	/**
+	 * @param feedBackDao
+	 *           the feedBackDao to set
+	 */
+	@Required
+	public void setFeedBackDao(final FeedBackDao feedBackDao)
+	{
+		this.feedBackDao = feedBackDao;
+	}
 
 	/*
 	 * (non-Javadoc)

@@ -176,6 +176,60 @@
 			</attributes>
 		</itemtype>
 		
+		<itemtype code="SampleItem1" extends="GenericItem" abstract="true" autocreate="true" generate="true" >
+		<attributes>
+		<attribute type="java.lang.String" qualifier="att1">
+		<persistence type="property"/>
+		</attribute>
+		</attributes>
+		</itemtype>
+		
+		<itemtype code="AbstractSampleItem2" autocreate="true" generate="true" extends="SampleItem1" abstract="true">		
+		<attributes>
+		<attribute type="java.lang.String" qualifier="att2">
+		<persistence type="property"/>
+		</attribute>
+		</attributes>
+		</itemtype>
+		
+		
+		<itemtype code="SampleItem3" autocreate="true" generate="true" extends="AbstractSampleItem2">
+		<attributes>
+		<attribute type="java.lang.String" qualifier="att3">
+		<persistence type="property"/>
+		</attribute>
+		</attributes>
+		</itemtype>
+		
+		
+		
+		
+		<itemtype code="SampleItem4" extends="GenericItem" abstract="true" autocreate="true" generate="true" jaloclass="de.hybris.platform.jalo.SampleItem4">
+		<attributes>
+		<attribute type="java.lang.String" qualifier="att1">
+		<persistence type="property"/>
+		</attribute>
+		</attributes>
+		</itemtype>
+		
+		<itemtype code="AbstractSampleItem5" autocreate="true" generate="true" extends="SampleItem4" abstract="true" jaloclass="de.hybris.platform.jalo.AbstractSampleItem5">		
+		<attributes>
+		<attribute type="java.lang.String" qualifier="att2">
+		<persistence type="property"/>
+		</attribute>
+		</attributes>
+		</itemtype>
+		
+		
+		<itemtype code="SampleItem6" autocreate="true" generate="true" extends="AbstractSampleItem5" jaloclass="de.hybris.platform.jalo.SampleItem6">
+		<attributes>
+		<attribute type="java.lang.String" qualifier="att3">
+		<persistence type="property"/>
+		</attribute>
+		</attributes>
+		</itemtype>	
+		
+		
 	</typegroup>
 
 	</itemtypes>

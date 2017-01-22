@@ -419,3 +419,8 @@ INSERT_UPDATE Region;country(isocode);isocode[unique=true];isocodeShort;name[lan
 ;JP;JP-06;06;"Yamagata"
 ;JP;JP-35;35;"Yamaguchi"
 ;JP;JP-19;19;"Yamanashi"
+
+INSERT_UPDATE Region;country(isocode);isocode[unique=true];isocodeShort;name[lang=en];active[default=true]
+;IN;IN-AP;AP;"Andhra Pradesh"
+;IN;IN-TN;AP;"Tamil Nadu"
+;IN;IN-TS;AP;"Telengana"

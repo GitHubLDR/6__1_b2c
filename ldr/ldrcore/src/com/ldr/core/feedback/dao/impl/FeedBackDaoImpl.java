@@ -5,9 +5,8 @@ package com.ldr.core.feedback.dao.impl;
 
 import de.hybris.platform.servicelayer.model.ModelService;
 
-import javax.annotation.Resource;
-
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Required;
 
 import com.ldr.core.feedback.dao.FeedBackDao;
 import com.ldr.core.model.FeedBackModel;
@@ -20,8 +19,27 @@ import com.ldr.core.model.FeedBackModel;
 public class FeedBackDaoImpl implements FeedBackDao
 {
 	protected static final Logger LOG = Logger.getLogger(FeedBackDaoImpl.class);
-	@Resource
-	ModelService modelService;
+
+
+	private ModelService modelService;
+
+	/**
+	 * @return the modelService
+	 */
+	protected ModelService getModelService()
+	{
+		return modelService;
+	}
+
+	/**
+	 * @param modelService
+	 *           the modelService to set
+	 */
+	@Required
+	public void setModelService(final ModelService modelService)
+	{
+		this.modelService = modelService;
+	}
 
 	/*
 	 * (non-Javadoc)

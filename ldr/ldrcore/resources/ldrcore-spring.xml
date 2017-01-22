@@ -403,8 +403,8 @@
 		<property name="siteMappings">
 			<map>
 				<entry key="electronics" value-ref="newCustomerCheckoutFlowStrategy"/>
-				<entry key="apparel-de" value-ref="multiStepCheckoutFlowStrategy"/>
-				<entry key="apparel-uk" value-ref="multiStepCheckoutFlowStrategy"/>
+				<entry key="ldrApparel-de" value-ref="multiStepCheckoutFlowStrategy"/>
+				<entry key="ldrApparel-uk" value-ref="multiStepCheckoutFlowStrategy"/>
 				<entry key="powertoolsstore" value-ref="multiStepCheckoutFlowStrategy"/>
 			</map>
 		</property>
@@ -473,10 +473,14 @@
 		
 		
 		 <alias name="defaultfeedBackDaoImpl" alias="feedBackDao"/>
-		 <bean id="defaultfeedBackDaoImpl" class="com.ldr.core.feedback.dao.impl.FeedBackDaoImpl"/>
+		 <bean id="defaultfeedBackDaoImpl" class="com.ldr.core.feedback.dao.impl.FeedBackDaoImpl">
+		 <property name="modelService" ref="modelService"/>
+		 </bean>
 		 
 		 <alias name="defaultFeedBackServiceImpl" alias="feedBackService"/>
-		  <bean id="defaultFeedBackServiceImpl" class="com.ldr.core.feedback.service.impl.FeedBackServiceImpl"/>
+		  <bean id="defaultFeedBackServiceImpl" class="com.ldr.core.feedback.service.impl.FeedBackServiceImpl">
+		  <property name="feedBackDao" ref="feedBackDao"/>
+		  </bean>
 		  
 		  <alias name="defaultSolrQueryPostProcessors" alias="solrQueryPostProcessors" />
 			<util:list id="defaultSolrQueryPostProcessors">
