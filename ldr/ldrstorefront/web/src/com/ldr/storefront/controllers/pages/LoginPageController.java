@@ -147,7 +147,7 @@ public class LoginPageController extends AbstractLoginPageController
 			model.addAttribute("ldrRegisterForm", form);
 			model.addAttribute(new LoginForm());
 			model.addAttribute(new GuestForm());
-			GlobalMessages.addErrorMessage(model, FORM_GLOBAL_ERROR);
+			//GlobalMessages.addErrorMessage(model, FORM_GLOBAL_ERROR);
 			return handleRegistrationError(model);
 		}
 
@@ -188,7 +188,7 @@ public class LoginPageController extends AbstractLoginPageController
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * de.hybris.platform.acceleratorstorefrontcommons.controllers.pages.AbstractLoginPageController#getDefaultLoginPage
 	 * (boolean, javax.servlet.http.HttpSession, org.springframework.ui.Model)
@@ -201,7 +201,8 @@ public class LoginPageController extends AbstractLoginPageController
 
 		final LoginForm loginForm = new LoginForm();
 		model.addAttribute(loginForm);
-		model.addAttribute("ldrRegisterForm", new LDRRegisterForm());
+		final LDRRegisterForm ldrRegisterForm = new LDRRegisterForm();
+		model.addAttribute("ldrRegisterForm", ldrRegisterForm);
 		model.addAttribute(new GuestForm());
 		model.addAttribute("countries", getCountries());
 

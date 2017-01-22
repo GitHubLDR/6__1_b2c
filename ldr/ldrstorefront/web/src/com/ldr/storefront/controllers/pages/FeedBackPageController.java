@@ -37,10 +37,46 @@ import com.ldr.storefront.form.validator.FeedBackFormValidator;
 public class FeedBackPageController extends AbstractPageController
 {
 	@Resource
-	FeedBackFacade feedBackFacade;
+	private FeedBackFacade feedBackFacade;
 
 	@Resource
-	FeedBackFormValidator feedBackFormValidator;
+	private FeedBackFormValidator feedBackFormValidator;
+
+	/**
+	 * @return the feedBackFacade
+	 */
+	protected FeedBackFacade getFeedBackFacade()
+	{
+		return feedBackFacade;
+	}
+
+
+	/**
+	 * @return the feedBackFormValidator
+	 */
+	protected FeedBackFormValidator getFeedBackFormValidator()
+	{
+		return feedBackFormValidator;
+	}
+
+
+	/**
+	 * @return the log
+	 */
+	protected static Logger getLog()
+	{
+		return LOG;
+	}
+
+
+	/**
+	 * @return the feedbackPage
+	 */
+	protected static String getFeedbackPage()
+	{
+		return FEEDBACK_PAGE;
+	}
+
 
 	/** The Constant LOG. */
 	protected static final Logger LOG = Logger.getLogger(FeedBackPageController.class);
@@ -68,7 +104,7 @@ public class FeedBackPageController extends AbstractPageController
 		/** Form Validator Comes Here................ */
 		LOG.info("FeedBackPageController==validateContactUs()==STARTED");
 
-		feedBackFormValidator.validate(form, bindingResult);
+		getFeedBackFormValidator().validate(form, bindingResult);
 		if (bindingResult.hasErrors())
 		{
 			model.addAttribute("feedBackForm", form);
@@ -81,7 +117,7 @@ public class FeedBackPageController extends AbstractPageController
 		feedBackData.setName(form.getName());
 		feedBackData.setEmail(form.getEmail());
 		feedBackData.setComment(form.getCommment());
-		feedBackFacade.getFeedBackData(feedBackData);
+		getFeedBackFacade().getFeedBackData(feedBackData);
 		GlobalMessages.addFlashMessage(redirectModel, GlobalMessages.CONF_MESSAGES_HOLDER, "form.contactus.thankyou");
 		return REDIRECT_PREFIX + "/";
 
