@@ -14,14 +14,24 @@
 	<widget-extension widgetId="backofficeMainSlot" >
 	<widget id="ldr-Perspective" widgetDefinitionId="com.hybris.cockpitng.borderlayout" slotId="perspectives" title="ldr.perspective.name" template="false" access="ldrbackofficesupportadministratorgroup,backofficeadmin">
 		<setting key="perspectiveImageUrl" value="/cng/images/sgm-logo-large.png" type="String" />		   
-		   		 <widget id="mychat1" widgetDefinitionId="com.ldrbackoffice.widgets.mychat" template="false" slotId="centerSlot" title="ldr.mychat1.name"/>
-		   		  <widget id="mychat2" widgetDefinitionId="com.ldrbackoffice.widgets.mychat" template="false" slotId="rightSlot" title="ldr.mychat2.name2"/>
+		   		 <widget id="ldr-explorer-tree" widgetDefinitionId="com.ldrbackoffice.extended.explorertree.ldrexplorertree" template="false" slotId="leftSlot" title="ldr.explorer.tree">
+		   		 <setting key="explorerTreeConfigCtx" type="String">ldrexplorertree</setting>
+                    <setting key="widgetStyleClass" type="String">y-ldrbackoffice-explorer-tree</setting>
+                    <setting key="allowFilteringEntries" type="Boolean">false</setting>
+                    <setting key="widgetStyleAttribute" type="String"></setting>
+		   		 </widget>
+		   		 	
+		   		 <!-- <widget id="mychat1" widgetDefinitionId="com.ldrbackoffice.widgets.mychat" template="false" slotId="centerSlot" title="ldr.mychat1.name"/>
+		   		 <widget id="mychat2" widgetDefinitionId="com.ldrbackoffice.widgets.mychat" template="false" slotId="rightSlot" title="ldr.mychat2.name2"/> -->
 		   </widget>		
 </widget-extension> 
 
 	<!-- Socket Connection b/w widgets -->
-  <widget-connection sourceWidgetId="mychat1" outputId="outgoingMsg" targetWidgetId="mychat2" inputId="incomingMsg"/>
-  <widget-connection sourceWidgetId="mychat2" outputId="outgoingMsg" targetWidgetId="mychat1" inputId="incomingMsg"/>
+ <!--  <widget-connection sourceWidgetId="mychat1" outputId="outgoingMsg" targetWidgetId="mychat2" inputId="incomingMsg"/>
+  <widget-connection sourceWidgetId="mychat2" outputId="outgoingMsg" targetWidgetId="mychat1" inputId="incomingMsg"/> -->
+
+	 <widget-connection sourceWidgetId="ldrexplorertree" outputId="nodeSelected" targetWidgetId="ldrTreeSelectionConditionEvaluator" inputId="input"/>
+    <widget-connection sourceWidgetId="ldrTreeSelectionConditionEvaluator" outputId="true" targetWidgetId="ldrNamePropExtractor" inputId="genericInput"/>
 
     <widget-connection inputId="input" outputId="nodeSelected" sourceWidgetId="ldrbackoffice-explorer-tree" targetWidgetId="ldrbackoffice-tree-node-adapter"/>
     <widget-connection inputId="genericInput" outputId="true" sourceWidgetId="ldrbackoffice-tree-node-adapter" targetWidgetId="ldrbackoffice-typecode-extractor"/>
