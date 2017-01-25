@@ -138,45 +138,6 @@
 					</wz:navigation>
 				</wz:step>
     </wz:flow>
-</context> 
-
-<context component="cs-explorer-tree" module="customersupportbackoffice"  >
-    <n:explorer-tree xmlns:n="http://www.hybris.com/cockpitng/config/explorertree" xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns:df="http://www.hybris.com/cockpitng/component/dynamicForms" xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch" xmlns:wz="http://www.hybris.com/cockpitng/config/wizard-config" xmlns:y="http://www.hybris.com/cockpit/config/hybris" title="ldr_customer_support">      
-      <n:navigation-node id="LDR">       
-        <n:type-node code="FeedBack" id="FeedBack"/>
-            </n:navigation-node>
-        </n:explorer-tree>
-  </context>
-  
-    <context  merge-by="type" component="listview" type="FeedBack" module="customersupportbackoffice">
-        <list-view:list-view>
-            <list-view:column qualifier="name"/>
-            <list-view:column qualifier="email" />
-            <list-view:column qualifier="comment" />
-        </list-view:list-view>
-    </context>
-    
-    <context merge-by="type" type="FeedBack" component="editor-area" module="customersupportbackoffice">
-		<editorArea:editorArea name="">
-			<editorArea:tab name="hmc.administration" >
-				<editorArea:section name="hmc.section.metadata">
-					<editorArea:attribute qualifier="name" />
-					<editorArea:attribute qualifier="email" />
-					<editorArea:attribute qualifier="comment" />
-				</editorArea:section>
-			</editorArea:tab>
-		</editorArea:editorArea>
-	</context>
-	
-	 <context  merge-by="type" type="FeedBack" component="advanced-search" module="customersupportbackoffice">
-       <advanced-search:advanced-search>
-            <advanced-search:field-list>
-                <advanced-search:field name="name" selected="true" />
-                <advanced-search:field name="email" selected="true" />
-                <advanced-search:field name="comment" selected="true" />
-            </advanced-search:field-list>
-        </advanced-search:advanced-search>
-    </context>
-    
+</context>   
     
 </config>
