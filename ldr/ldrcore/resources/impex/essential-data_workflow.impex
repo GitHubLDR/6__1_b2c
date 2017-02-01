@@ -1,0 +1,67 @@
+$passwordEncoding=md5
+$defaultPassword=1234
+$setPassword=@password[translator=de.hybris.platform.impex.jalo.translators.ConvertPlaintextToEncodedUserPasswordTranslator][default='$passwordEncoding:$defaultPassword']
+
+INSERT_UPDATE UserGroup;UID[unique=true];groups(uid)[mode=append]
+;customermanagergroup;cockpitgroup,employeegroup,admingroup
+
+INSERT_UPDATE Employee;UID[unique=true];$setPassword;description;name;groups(uid)[mode=append];sessionLanguage(isocode);sessionCurrency(isocode)
+;customermanager;;Customer manager;Customer Manager;customermanagergroup;en;USD
+
+$START_USERRIGHTS;;;;;;;;;
+Type;UID;MemberOfGroups;Password;Target;read;change;create;remove;change_perm
+UserGroup;customermanagergroup;customermanager;;;;;;;
+
+# general
+;;;;Item;+;;;;;
+;;;;UserGroup;+;;;;;
+;;;;Principal;+;+;+;-;-
+;;;;Employee;+;-;-;-;-
+;;;;InboxView;+;-;-;-;-;;
+;;;;WorkflowTemplate;+;+;+;+;+;;
+;;;;Workflow;+;+;+;+;+;;
+;;;;AbstractWorkflowAction;+;+;+;+;+;;
+;;;;WorkflowActionTemplate;+;+;+;+;+;;
+;;;;WorkflowAction;+;+;+;+;+;;
+;;;;WorkflowItemAttachment;+;+;+;+;+;;
+;;;;WorkflowActionStatus;+;+;+;+;+;;
+;;;;WorkflowActionComment;+;+;+;+;+;;
+;;;;WorkflowDecision;+;+;+;+;+;;
+;;;;WorkflowActionLinkRelation;+;+;+;+;+;;
+;;;;AbstractOrder;+;+;+;+;-
+;;;;AbstractOrderEntry;+;+;+;+;-
+;;;;BusinessProcess;+;-;-;-;-
+;;;;ApprovalProcess;+;-;-;-;-;;
+;;;;Product;+;-;-;-;-;
+;;;;Unit;+;-;-;-;-;
+;;;;ComposedType;+;-;-;-;-;
+;;;;Customer;+;-;-;-;-;
+;;;;Discount;+;+;+;+;-
+
+$END_USERRIGHTS;;;;;
+
+
+INSERT_UPDATE WorkflowTemplate;code[unique=true];name[lang=en];owner(uid);description[lang=en];visibleForPrincipals(uid);activationscript
+;NewCustomerActivationWorkFlow;NewCustomerActivation;admin;New Customer Activation;customermanagergroup;;
+
+INSERT_UPDATE WorkflowActionTemplate;code[unique=true];name[lang=en];principalAssigned(uid);workflow(code)[unique=true];actionType(code)
+;New_Registeration_Start;New_Registeration_Start;customermanagergroup;NewCustomerActivationWorkFlow;start;
+;New_Registeration_End;New_Registeration_End;customermanagergroup;NewCustomerActivationWorkFlow;end;
+
+INSERT_UPDATE AutomatedWorkflowActionTemplate;code[unique=true];name[lang=en];principalAssigned(uid);workflow(code)[unique=true];actionType(code);jobClass;
+;New_Registeration_Start_Approval;New_Registeration_Start_Approval;customermanagergroup;NewCustomerActivationWorkFlow;normal;"com.ldr.workflow.customer.DefaultNewCustomerRegistrationActivation";
+;New_Registeration_End_Approval;New_Registeration_End_Approval;customermanagergroup;NewCustomerActivationWorkFlow;normal;"com.ldr.workflow.customer.DefaultNewCustomerRegistrationDecline";
+
+#decesion for Step1
+INSERT_UPDATE WorkflowDecisionTemplate;code[unique=true];name[lang=en];actionTemplate(code);
+;NCR01;Activating;New_Registeration_Start
+;NCR02;Declining;New_Registeration_Start
+;NCR03;End;New_Registeration_Start_Approval
+;NCR04;End;New_Registeration_End_Approval
+
+INSERT_UPDATE WorkflowActionTemplateLinkTemplateRelation;source(code)[unique=true];target(code)
+;NCR01;New_Registeration_Start_Approval;
+;NCR02;New_Registeration_End_Approval;
+;NCR03;New_Registeration_End;
+;NCR04;New_Registeration_End;
+
